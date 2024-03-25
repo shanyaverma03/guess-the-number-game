@@ -6,7 +6,7 @@ const StartGameScreen = () => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
-        style={styles.inputContainer}
+        style={styles.numberInput}
         maxLength={2}
         keyboardType="number-pad"
         autoCapitalize="none"
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
-    backgroundColor: "pink",
+    backgroundColor: "#3b021f",
     borderRadius: 8,
     elevation: 4,
     shadowColor: "black",
