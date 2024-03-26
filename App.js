@@ -5,13 +5,32 @@ import { useState } from "react";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
 import Colors from "./constants/colors";
+import GameOverScreen from "./screens/GameOverScreen";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState(null);
+  const [isGameOver, setIsGameOver] = useState(true);
 
   const updateUserNumberHandler = (enteredNumber) => {
     setUserNumber(enteredNumber);
+    setIsGameOver(false);
   };
+
+  const updateGameOverHandler = () => {
+    setIsGameOver(true);
+  };
+
+  let screen = <StartGameScreen onUpdateNumber={updateUserNumberHandler} />;
+
+  if (userNumber) {
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={updateGameOverHandler} />
+    );
+  }
+
+  if (isGameOver && userNumber) {
+    screen = <GameOverScreen />;
+  }
 
   return (
     <LinearGradient
@@ -24,13 +43,7 @@ export default function App() {
         style={styles.rootScreen}
         imageStyle={styles.backgroungImage}
       >
-        <SafeAreaView style={styles.rootScreen}>
-          {userNumber ? (
-            <GameScreen userNumber={userNumber} />
-          ) : (
-            <StartGameScreen onUpdateNumber={updateUserNumberHandler} />
-          )}
-        </SafeAreaView>
+        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
